@@ -5,7 +5,7 @@
 class LivroDAO
 {
 
-//buscar livros - fichas
+//buscar todos livros - fichas
 public function listarTodos(): array
 {    
 $pdo = Database ::getConexao();

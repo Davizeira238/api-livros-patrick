@@ -1,5 +1,5 @@
 <?php
-// Model: só guarda os dados de um livro (equivale ao Livro.java).
+// Model: só guarda os dados de um livro 
 class Livro
 {
     public function __construct(
@@ -12,7 +12,7 @@ class Livro
     ) {
     }
 
-    // Transforma o objeto em array para virar JSON na resposta da API.
+    // Transforma o objeto em array para virar JSON na resposta da API
     // Array tras todas as informacoes do livro
     // JSON LINGUAGEM UNIVERSAL
     public function toArray(): array
