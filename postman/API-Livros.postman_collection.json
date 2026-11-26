@@ -1,0 +1,98 @@
+{
+  "info": {
+    "name": "API Livros - Apresentação",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "1. Cadastrar livro (POST) - 201",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Guarda o id do livro criado para usar nos próximos passos",
+              "if (pm.response.code === 201) {",
+              "    pm.collectionVariables.set('id', pm.response.json().id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Memórias Póstumas de Brás Cubas\",\n  \"autor\": \"Machado de Assis\",\n  \"isbn\": \"9788535911664\",\n  \"disponivel\": true,\n  \"usuario_id\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{base_url}}/livros"
+      }
+    },
+    {
+      "name": "2. Listar livros (GET) - 200",
+      "request": { "method": "GET", "header": [], "url": "{{base_url}}/livros" }
+    },
+    {
+      "name": "3. Buscar livro pelo id (GET) - 200",
+      "request": { "method": "GET", "header": [], "url": "{{base_url}}/livros/{{id}}" }
+    },
+    {
+      "name": "4. Atualizar livro (PUT) - 200",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Memórias Póstumas de Brás Cubas\",\n  \"autor\": \"Machado de Assis\",\n  \"isbn\": \"9788535911664\",\n  \"disponivel\": false,\n  \"usuario_id\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{base_url}}/livros/{{id}}"
+      }
+    },
+    {
+      "name": "5. Erro - cadastrar sem título (POST) - 400",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"\",\n  \"autor\": \"Machado de Assis\",\n  \"usuario_id\": 1\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{base_url}}/livros"
+      }
+    },
+    {
+      "name": "6. Erro - usuário inexistente (POST) - 400",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Livro sem dono\",\n  \"autor\": \"Autor\",\n  \"usuario_id\": 9999\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{base_url}}/livros"
+      }
+    },
+    {
+      "name": "7. Erro - ID inválido (GET) - 400",
+      "request": { "method": "GET", "header": [], "url": "{{base_url}}/livros/abc" }
+    },
+    {
+      "name": "8. Excluir livro (DELETE) - 204",
+      "request": { "method": "DELETE", "header": [], "url": "{{base_url}}/livros/{{id}}" }
+    },
+    {
+      "name": "9. Buscar livro excluído (GET) - 404",
+      "request": { "method": "GET", "header": [], "url": "{{base_url}}/livros/{{id}}" }
+    }
+  ]
+}
