@@ -1,5 +1,3 @@
--- Use este arquivo SOMENTE se não estiver usando o MySQL/Flyway do projeto Java.
--- (Com o projeto Java, `docker compose up -d` já cria tudo.)
 CREATE DATABASE IF NOT EXISTS intercambio_livros CHARACTER SET utf8mb4;
 USE intercambio_livros;
 
